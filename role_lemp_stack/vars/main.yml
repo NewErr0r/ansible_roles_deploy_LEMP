@@ -1,0 +1,19 @@
+---
+centos_mariadb: 
+  - mariadb-server
+  - python3-PyMySQL
+
+centos_php_fpm:
+  - php-fpm 
+  - php-mysqlnd
+
+path_php_fpm: /etc/php-fpm.d/www.conf
+
+debian_mariadb:
+  - mariadb-server 
+  - mariadb-client
+  - python3-pymysql
+
+debian_php_fpm:
+  - php-fpm 
+  - php-mysqli

@@ -1,0 +1,48 @@
+---
+- name: Install NGINX 
+  dnf: 
+    name: nginx 
+    state: latest
+  notify:
+    - Started and Enabled NGINX
+
+- name: Configure Firewalld 
+  firewalld: 
+    service: http
+    permanent: true
+    state: enabled
+  notify: 
+    - Restart Firewalld
+
+- name: Install MariaDB
+  dnf: 
+    name: "{{ centos_mariadb }}"
+    state: latest
+
+- name: Started and Enabled MariaDB
+  service:
+    name: mariadb 
+    enabled: true 
+    state: started 
+
+- name: Configure root password for MariaDB
+  mysql_user:
+    check_implicit_admin: true
+    login_user: "{{ mysql_root_user }}"
+    login_password: "{{ mysql_root_pass }}"
+    user: root
+    password: 
+    host: localhost
+
+- name: Install PHP-FPM
+  dnf: 
+    name: "{{ centos_php_fpm }}"
+    state: latest
+
+- name: Configure PHP-FPM
+  copy: 
+    src: www.conf
+    dest: "{{ path_php_fpm }}"
+  notify: 
+    - Started and Enabled PHP-FPM
+    - Restart NGINX

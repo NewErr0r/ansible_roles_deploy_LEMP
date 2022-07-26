@@ -1,0 +1,8 @@
+---
+- name: Installing the Linux, Nginx, MySQL, PHP stack (LEMP)
+  hosts: all
+  become: true
+
+  roles:
+#    - { role: role_lemp_stack, when: ansible_os_family == "RedHat"}
+#    - { role: role_lemp_stack, when: ansible_os_family == "Debian"}

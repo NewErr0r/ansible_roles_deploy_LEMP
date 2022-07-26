@@ -1,0 +1,10 @@
+---
+- name: Installing the Linux, Nginx, MySQL, PHP stack (LEMP) on CentOS
+  include_tasks: centos_deploy_lemp.yaml
+  when: 
+    - ansible_os_family == "RedHat"
+
+- name: Installing the Linux, Nginx, MySQL, PHP stack (LEMP) on Debian
+  include_tasks: debian_deploy_lemp.yaml
+  when: 
+    - ansible_os_family == "Debian"
